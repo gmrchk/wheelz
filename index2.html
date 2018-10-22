@@ -1,0 +1,54 @@
+<script src="dist/pageWheelz.js"></script>
+<script src="dist/plugins/addScrollbar.js"></script>
+<script src="dist/plugins/delayItems.js"></script>
+
+<style>
+    body {
+        padding: 10px;
+    }
+
+    holder {
+        height: 220px;
+        margin: 0 0 10px;
+        display: block;
+        /*background: linear-gradient(to bottom right, #fff, #000);*/
+        background: #555;
+    }
+
+    holder:nth-child(odd) {
+        background: #333;
+    }
+</style>
+<body>
+    <div data-wheelz>
+        <holder></holder>
+        <holder></holder>
+        <holder></holder>
+        <holder></holder>
+        <holder></holder>
+        <holder></holder>
+        <holder></holder>
+        <holder></holder>
+        <holder></holder>
+        <holder></holder>
+        <holder></holder>
+    </div>
+</body>
+
+
+<script>
+    //var w1 = new PageWheelz({
+    //    draggable: true,
+    //    //friction: 0.3,
+    //    //acceleration: 0.02,
+    //    preset: "normal"
+    //});
+    w1.on('drag', (event) => console.log("drag"));
+
+    addScrollbar(w1);
+    //delayItems(w1);
+
+    //document.querySelector('.scroll2').addEventListener('click', event => {
+    //    console.log('asd')
+    //});
+</script>
