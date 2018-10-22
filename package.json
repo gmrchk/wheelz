@@ -1,6 +1,6 @@
 {
   "name": "wheelz",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Kinetic scroller",
   "main": "lib/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
     "scroll"
   ],
   "dependencies": {
-    "kinet": "^2.1.1"
+    "kinet": "^2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

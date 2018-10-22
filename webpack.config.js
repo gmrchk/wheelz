@@ -1,5 +1,11 @@
 const webpack = require('webpack');
+var glob = require("glob");
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+let plugins = [];
+glob.sync("./src/plugins/**.js").forEach(item => {
+    plugins.push(item.replace('./src/plugins/', '').replace('.js', ''));
+});
 
 const baseConfig = {
     mode: "production",
@@ -30,7 +36,7 @@ const baseConfig = {
     }
 }
 
-const config = Object.assign({}, baseConfig, {
+const mainConfig = Object.assign({}, baseConfig, {
     entry: {
         "wheelz": "./entry.js",
         "wheelz.min": "./entry.js",
@@ -41,6 +47,43 @@ const config = Object.assign({}, baseConfig, {
         libraryTarget: "umd",
         filename: "[name].js",
     },
+});
+
+const pageConfig = Object.assign({}, baseConfig, {
+    entry: {
+        "pageWheelz": "./pageEntry.js",
+        "pageWheelz.min": "./pageEntry.js",
+    },
+    output: {
+        path: __dirname + "/dist/",
+        library: "PageWheelz",
+        libraryTarget: "umd",
+        filename: "[name].js",
+    },
 })
 
-module.exports = config
+function createPluginConfig(pluginName) {
+    let config = Object.assign({}, baseConfig, {
+        entry: {},
+        output: {
+            path: __dirname + "/dist/plugins",
+            library: pluginName,
+            libraryTarget: "umd",
+            filename: "[name].js",
+        },
+    })
+
+    config.entry[pluginName] = `./src/plugins/${ pluginName }.js`
+    config.entry[pluginName + ".min"] = `./src/plugins/${ pluginName }.js`
+
+    return config
+}
+
+let configsArray = []
+configsArray.push(mainConfig);
+configsArray.push(pageConfig);
+plugins.forEach(item => {
+    configsArray.push(createPluginConfig(item));
+})
+
+module.exports = configsArray;

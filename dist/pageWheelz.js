@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define([], factory);
 	else if(typeof exports === 'object')
-		exports["Wheelz"] = factory();
+		exports["PageWheelz"] = factory();
 	else
-		root["Wheelz"] = factory();
+		root["PageWheelz"] = factory();
 })(window, function() {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -101,16 +101,117 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 
 
-var _index = __webpack_require__(1);
+var _PageWheelz = __webpack_require__(1);
+
+var _PageWheelz2 = _interopRequireDefault(_PageWheelz);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+module.exports = _PageWheelz2.default; // this is here for webpack to expose Wheelz as window.Wheelz
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _index = __webpack_require__(2);
 
 var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-module.exports = _index2.default; // this is here for webpack to expose Wheelz as window.Wheelz
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var PageWheelz = function (_Wheelz) {
+    _inherits(PageWheelz, _Wheelz);
+
+    function PageWheelz(options) {
+        _classCallCheck(this, PageWheelz);
+
+        // get container
+        var $container = document.querySelector('[data-wheelz]');
+
+        // report missing container
+        if ($container == null) {
+            console.error("Container with attribute 'data-wheelz' is required.");
+            return _possibleConstructorReturn(_this);
+        }
+
+        // style container
+        $container.style.cssText = '\n            position: fixed;\n            top: 0;\n            right: 0;\n            bottom: 0;\n            left: 0;\n            overflow: hidden;\n        ';
+
+        var $sizer = document.createElement('div');
+        $sizer.style.cssText = '\n            position: absolute;\n            top: 0;\n            left: 0;\n            width: 1px;\n            opacity: 0; \n            pointer-events: none;\n            height: ' + $container.scrollHeight + 'px;\n        ';
+
+        document.body.appendChild($sizer);
+
+        // disable original listeners
+        var _this = _possibleConstructorReturn(this, (PageWheelz.__proto__ || Object.getPrototypeOf(PageWheelz)).call(this, $container, options));
+
+        _this.element.removeEventListener('mousewheel', _this._wheelHandler);
+        _this.element.removeEventListener('mousemove', _this._wheelHandler);
+        _this.element.removeEventListener('touchmove', _this._wheelHandler);
+
+        // mirror page scroll
+        _this.kinet.set('y', window.scrollY);
+        window.addEventListener('scroll', function (event) {
+            _this.kinet.animate('y', window.scrollY);
+        }, { passive: true });
+
+        // propagate wheel event from window
+        window.addEventListener('wheel', function (event) {
+            if (window.scrollY + event.deltaY < 0 || window.scrollY + event.deltaY > _this.numbers.maxScroll) {
+                // cancel scrolling of whole page on mac (doesn't work yet)
+                // event.preventDefault();
+                // event.stopPropagation();
+                // event.stopImmediatePropagation();
+            }
+            _this.executeHandlers("wheel", event);
+        }, { passive: true });
+
+        // create new drag
+        var dragHandler = function dragHandler(event) {
+            var ev = void 0;
+            if (event.type == "touchmove") {
+                ev = event.touches[0];
+            } else {
+                ev = event;
+            }
+
+            if (_this.press.pressed) {
+                _this.press.moved = true;
+                var s = _this.press.atScroll + _this.press.y - ev.clientY;
+                window.scrollTo(0, s);
+                _this.executeHandlers("drag", ev);
+            }
+        };
+
+        _this.element.addEventListener('mousemove', dragHandler, { passive: true });
+        _this.element.addEventListener('touchmove', dragHandler, { passive: true });
+
+        // save to instance
+        _this.$container = $container;
+        _this.$sizer = $sizer;
+        return _this;
+    }
+
+    return PageWheelz;
+}(_index2.default);
+
+exports.default = PageWheelz;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -124,39 +225,39 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _clickHandler = __webpack_require__(2);
+var _clickHandler = __webpack_require__(3);
 
 var _clickHandler2 = _interopRequireDefault(_clickHandler);
 
-var _resizeHandler = __webpack_require__(3);
+var _resizeHandler = __webpack_require__(4);
 
 var _resizeHandler2 = _interopRequireDefault(_resizeHandler);
 
-var _mouseDownHandler = __webpack_require__(4);
+var _mouseDownHandler = __webpack_require__(5);
 
 var _mouseDownHandler2 = _interopRequireDefault(_mouseDownHandler);
 
-var _mouseUpHandler = __webpack_require__(5);
+var _mouseUpHandler = __webpack_require__(6);
 
 var _mouseUpHandler2 = _interopRequireDefault(_mouseUpHandler);
 
-var _mouseMoveHandler = __webpack_require__(6);
+var _mouseMoveHandler = __webpack_require__(7);
 
 var _mouseMoveHandler2 = _interopRequireDefault(_mouseMoveHandler);
 
-var _wheelHandler = __webpack_require__(7);
+var _wheelHandler = __webpack_require__(8);
 
 var _wheelHandler2 = _interopRequireDefault(_wheelHandler);
 
-var _mouseEnterHandler = __webpack_require__(8);
+var _mouseEnterHandler = __webpack_require__(9);
 
 var _mouseEnterHandler2 = _interopRequireDefault(_mouseEnterHandler);
 
-var _mouseLeaveHandler = __webpack_require__(9);
+var _mouseLeaveHandler = __webpack_require__(10);
 
 var _mouseLeaveHandler2 = _interopRequireDefault(_mouseLeaveHandler);
 
-var _kinet = __webpack_require__(10);
+var _kinet = __webpack_require__(11);
 
 var _kinet2 = _interopRequireDefault(_kinet);
 
@@ -430,7 +531,7 @@ var Wheelz = function () {
 exports.default = Wheelz;
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -452,7 +553,7 @@ function click(event) {
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -477,7 +578,7 @@ function resize(event) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -512,7 +613,7 @@ function mouseDown(event) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -545,7 +646,7 @@ function mouseUp(event) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -583,7 +684,7 @@ function mouseMove(event) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -619,7 +720,7 @@ function wheel(event) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -640,7 +741,7 @@ function mouseEnter(event) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -661,7 +762,7 @@ function mouseLeave(event) {
 }
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1037,10 +1138,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         /******/)
     );
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(11)(module)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(12)(module)))
 
 /***/ }),
-/* 11 */
+/* 12 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
