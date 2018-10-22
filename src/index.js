@@ -7,7 +7,7 @@ import wheelHandler from './wheelHandler';
 import mouseEnterHandler from './mouseEnterHandler';
 import mouseLeaveHandler from './mouseLeaveHandler';
 
-import Kinet from '../kinet';
+import Kinet from 'kinet';
 
 
 class Wheelz {
