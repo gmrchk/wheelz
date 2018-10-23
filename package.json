@@ -1,11 +1,11 @@
 {
   "name": "wheelz",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Kinetic scroller",
   "main": "lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "compile": "babel --presets es2015,stage-0 -d lib/ src/ && babel --presets es2015,stage-0 src/PageWheelz.js --out-file PageWheelz.js",
+    "compile": "babel --presets es2015,stage-0 -d lib/ src/ && babel --presets es2015,stage-0 src/PageWheelz.js --out-file PageWheelz.js && babel --presets es2015,stage-0 -d plugins/ src/plugins/",
     "build": "webpack-cli",
     "prepublish": "npm run compile && npm run build"
   },

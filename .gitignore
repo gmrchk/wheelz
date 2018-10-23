@@ -13,6 +13,7 @@ wiki-wishlist
 *.sublime-workspace
 .editorconfig
 .idea
+plugins
 lib
 index.html
 index2.html
