@@ -1,6 +1,6 @@
 {
   "name": "wheelz",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "Kinetic scroller",
   "main": "lib/index.js",
   "scripts": {

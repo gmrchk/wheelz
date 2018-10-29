@@ -390,6 +390,8 @@ var Wheelz = function () {
     }, {
         key: 'off',
         value: function off(event, handler) {
+            var _this2 = this;
+
             if (event != null) {
                 if (handler != null) {
                     if (this.handlers[event] && this.handlers[event].filter(function (savedHandler) {
@@ -409,7 +411,9 @@ var Wheelz = function () {
                     this.handlers[event] = [];
                 }
             } else {
-                this.handlers = {};
+                Object.keys(this.handlers).forEach(function (keys) {
+                    _this2.handlers[keys] = [];
+                });
             }
         }
 

@@ -203,7 +203,9 @@ class Wheelz {
                 this.handlers[event] = [];
             }
         } else {
-            this.handlers = {};
+            Object.keys(this.handlers).forEach(keys => {
+                this.handlers[keys] = [];
+            });
         }
     }
 
