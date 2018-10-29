@@ -49,19 +49,6 @@ const mainConfig = Object.assign({}, baseConfig, {
     },
 });
 
-const pageConfig = Object.assign({}, baseConfig, {
-    entry: {
-        "pageWheelz": "./pageEntry.js",
-        "pageWheelz.min": "./pageEntry.js",
-    },
-    output: {
-        path: __dirname + "/dist/",
-        library: "PageWheelz",
-        libraryTarget: "umd",
-        filename: "[name].js",
-    },
-})
-
 function createPluginConfig(pluginName) {
     let config = Object.assign({}, baseConfig, {
         entry: {},
@@ -81,7 +68,6 @@ function createPluginConfig(pluginName) {
 
 let configsArray = []
 configsArray.push(mainConfig);
-configsArray.push(pageConfig);
 plugins.forEach(item => {
     configsArray.push(createPluginConfig(item));
 })
