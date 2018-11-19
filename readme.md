@@ -90,3 +90,35 @@ wheelz.off(); // removes all handlers
 * **scrollStart** - triggered when scroll starts
 * **scrollEnd** - triggered when scroll ends (same as **stabilized**... only for clarity)
 * **wheel** - triggered on mouse wheel over the root element
+
+## Plugins
+Plugins use wheelz events to modify the visual appearance of scroll.
+Plugins can also be imported from npm or loaded with script tag.
+
+```html
+<script src="./dist/plugins/pluginName.min.js"></script>
+```
+or with *npm* and *import*
+```javascript
+// import needed modules from npm
+import pluginsName from 'wheelz/plugins/pluginsName';
+``` 
+
+### addScrollbar
+Scrollbar adds scrollbar visualising both, the actual scrollTop value and the scrollTop animated value of wheelz.
+Scrollbar styles are inserted at the top of head tag, so styles can be rewritten with any styles included afterwards.
+ 
+**Usage:**  
+```javascript
+var wheelz = new Wheelz();
+addScrollbar(wheelz);
+```
+
+### delayItems
+Creates effect of delayed items, similar to one seen in Apple iOS iMessage application. 
+
+**Usage:**  
+```javascript
+var wheelz = new Wheelz();
+delayItems(wheelz);
+```
