@@ -1,7 +1,6 @@
 export default function mouseUp(event) {
     this.element.style.cursor = "";
     document.documentElement.style.cursor = "";
-    this.press.pressed = false;
 
     let ev;
     if (event.type == "touchstart") {
@@ -14,6 +13,10 @@ export default function mouseUp(event) {
         this.press.moved = false;
     }, 10)
 
-    this.executeHandlers("dragEnd", ev);
-    this.executeHandlers("pointerUp", ev);
+    if (this.press.pressed) {
+        this.executeHandlers("dragEnd", ev);
+        this.executeHandlers("pointerUp", ev);
+    }
+
+    this.press.pressed = false;
 }

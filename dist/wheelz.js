@@ -531,7 +531,6 @@ function mouseUp(event) {
 
     this.element.style.cursor = "";
     document.documentElement.style.cursor = "";
-    this.press.pressed = false;
 
     var ev = void 0;
     if (event.type == "touchstart") {
@@ -544,8 +543,12 @@ function mouseUp(event) {
         _this.press.moved = false;
     }, 10);
 
-    this.executeHandlers("dragEnd", ev);
-    this.executeHandlers("pointerUp", ev);
+    if (this.press.pressed) {
+        this.executeHandlers("dragEnd", ev);
+        this.executeHandlers("pointerUp", ev);
+    }
+
+    this.press.pressed = false;
 }
 
 /***/ }),
