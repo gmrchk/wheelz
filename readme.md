@@ -1,6 +1,7 @@
 # Wheelz
 Fun, acceleration based scroller. Animates and smoothens the scroll of element content.
-Uses native scroll, so any scroll events on the element will work as expected by default. 
+Uses native scroll, so any scroll events on the element will work as expected by default.  
+[**Demo here**](https://gmrchk.github.io/wheelz/)
 
 ## Installation
 Include Wheelz with scripts tag
@@ -49,10 +50,9 @@ var wheelz = new Wheelz({
 Makes the are of scrolled element draggable with mouse. Can be set to `true` or `false`.
 
 ```javascript
-// default value
-test: function (instance) {
-    return Math.abs(instance.current - instance.target) > 0.1;
-}
+var wheelz = new Wheelz({
+    draggable: false
+});
 ```
 
 ## Events
