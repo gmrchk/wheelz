@@ -14,9 +14,7 @@ class Wheelz {
     constructor(element, options) {
         // default options
         let defaults = {
-            containerPadding: 0,
             draggable: false,
-
             friction: 0.3,
             acceleration: 0.04,
             preset: null,
