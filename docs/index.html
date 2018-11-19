@@ -1,0 +1,210 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
+    <script src="https://unpkg.com/wheelz@latest/dist/wheelz.min.js"></script>
+    <script src="https://unpkg.com/wheelz@latest/dist/plugins/addScrollbar.js"></script>
+    <script src="https://unpkg.com/wheelz@latest/dist/plugins/delayItems.js"></script>
+    <style>
+        html, body {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            background: #fff;
+            overflow: hidden;
+            font-family: 'Source Sans Pro',-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,sans-serif;
+        }
+
+        .wrapper {
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 40px 0 0;
+            position: relative;
+        }
+
+        .scroll-box-holder {
+            width: calc(50% - 10px);
+            max-width: 420px;
+            position: relative;
+        }
+
+        .scroll-box {
+            width: 100%;
+            height: 70vh;
+            display: inline-block;
+            overflow: scroll;
+            padding: 10px 0;
+            position: relative;
+            box-sizing: border-box;
+            overflow-x: hidden;
+            border-radius: 4px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .wheelz {
+            -webkit-mask-image: radial-gradient(to bottom, transparent 0%, #000 40px, #000 calc(100% - 40px), transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, #000 40px, #000 calc(100% - 40px), transparent 100%);
+        }
+
+        .scroll-box section {
+            height: 80px;
+            margin: 10px 0 0;
+            background: linear-gradient(to top left, #0062bE, #00A2FE);
+            box-shadow: 0 4px 8px rgba(0, 162, 254, .2);
+            border-radius: 4px;
+            padding: 10px 10px;
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .scroll-box section:nth-child(odd) {
+            background: linear-gradient(to top left, #aab2bd, #c1cbd2);
+            box-shadow: 0 4px 8px rgba(193, 203, 210, .2);
+        }
+
+        .scroll-box section:first-child {
+            margin-top: 0;
+        }
+
+        a {
+            color: #232323;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin: 0 auto 10px;
+        }
+
+        h2 {
+            content: 'Normal';
+            position: absolute;
+            top: -20px;
+            font-size: 16px;
+            color: #ccc;
+            margin: 0;
+            font-weight: 400;
+        }
+
+        p {
+            font-size: 20px;
+            margin: 0 auto 10px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .wrapper {
+                width: 100%;
+            }
+
+            .wrapper:after {
+                content: 'Wheelz is not made for mobile.';
+                position: absolute;
+                bottom: -20px;
+                left: 0;
+                color: #888;
+            }
+        }
+    </style>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+</head>
+<body>
+    <h1><a href="https://github.com/gmrchk/wheelz">Wheelz</a></h1>
+    <p><a href="https://github.com/gmrchk/wheelz/blob/master/docs/index.html">DEMO Source</a></p>
+    <a class="github-button" href="https://github.com/gmrchk/wheelz" data-icon="octicon-star" data-size="large" aria-label="Star gmrchk/wheelz on GitHub">Star</a>
+    <div class="wrapper">
+        <div class="scroll-box-holder">
+            <h2>normal</h2>
+            <div class="scroll-box">
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+            </div>
+        </div>
+
+        <div class="scroll-box-holder">
+            <h2>wheelz</h2>
+            <div class="scroll-box" id="wheelz">
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+                <section></section>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script>
+    var w1 = new Wheelz(document.getElementById('wheelz'), {
+        draggable: true,
+    });
+
+    // add scrollbar plugin
+    addScrollbar(w1);
+
+    // add delayed scroll plugin
+    delayItems(w1);
+
+    // console log all the events
+    let handlers = [
+        "stabilized",
+        "disable",
+        "hitTop",
+        "hitBottom",
+        "click",
+        "dragStart",
+        "drag",
+        "dragEnd",
+        "pointerUp",
+        "pointerDown",
+        "pointerEnter",
+        "pointerLeave",
+        "resize",
+        "wheel",
+        "scroll",
+        "scrollStart",
+        "scrollEnd",
+    ];
+
+    handlers.forEach(item => {
+        w1.on(item, function(event) {
+            console.groupCollapsed(item);
+            console.log(event);
+            console.groupEnd();
+        });
+    });
+</script>
