@@ -1,6 +1,6 @@
 {
   "name": "wheelz",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Fun, acceleration based scroller.",
   "main": "lib/index.js",
   "scripts": {

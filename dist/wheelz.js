@@ -211,6 +211,7 @@ var Wheelz = function () {
 
         // default options
         var defaults = {
+            containerPadding: 0,
             draggable: false,
             friction: 0.3,
             acceleration: 0.04,
