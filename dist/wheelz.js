@@ -282,7 +282,7 @@ var Wheelz = function () {
             this._resizeHandler();
 
             // wheel
-            this.element.addEventListener('mousewheel', this._wheelHandler);
+            this.element.addEventListener('wheel', this._wheelHandler);
 
             if (this.options.draggable) {
                 // drag
@@ -343,9 +343,7 @@ var Wheelz = function () {
             this.element.style.transform = "";
 
             // wheel
-            this.element.removeEventListener('mousewheel', this._wheelHandler);
-
-            this.element.removeEventListener('mousewheel', this._wheelHandler);
+            this.element.removeEventListener('wheel', this._wheelHandler);
 
             if (this.options.draggable) {
                 // drag
